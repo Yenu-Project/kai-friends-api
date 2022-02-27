@@ -1,35 +1,73 @@
 from django.contrib.auth.models import User
-from rest_framework import generics, permissions
+from rest_framework import permissions, viewsets
 
 from app.models import UserProfile
+from app.permissions import IsOwnerOrReadOnly
 from app.serializers import UserProfileSerializer, UserSerializer
 
 
-class UserProfileList(generics.ListCreateAPIView):
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`, `update` and `destroy` actions.
+    """
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
-class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
-class UserList(generics.ListAPIView):
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list` and `retrieve` actions
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
+# from django.contrib.auth.models import User
+# from rest_framework import generics, permissions
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from rest_framework.reverse import reverse
+#
+# from app.models import UserProfile
+# from app.serializers import UserProfileSerializer, UserSerializer
+#
+#
+# @api_view(['GET'])
+# def api_root(request, format=None):
+#     return Response({
+#         'users': reverse('user-list', request=request, format=format),
+#         'userprofiles': reverse('userprofile-list', request=request, format=format)
+#     })
+#
+#
+# class UserProfileList(generics.ListCreateAPIView):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializer
+#
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
+#
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+#
+#
+# class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializer
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+#
+#
+# class UserList(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#
+#
+# class UserDetail(generics.RetrieveAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#
 # from rest_framework import mixins, generics
 #
 # from app.models import User
@@ -64,7 +102,7 @@ class UserDetail(generics.RetrieveAPIView):
 #
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
-
+#
 # from django.http import Http404
 # from rest_framework import status
 # from rest_framework.response import Response
@@ -119,7 +157,7 @@ class UserDetail(generics.RetrieveAPIView):
 #         user = self.get_object(pk)
 #         user.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
-
+#
 # from rest_framework import status
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
@@ -170,7 +208,7 @@ class UserDetail(generics.RetrieveAPIView):
 #     elif request.method == 'DELETE':
 #         user.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
-
+#
 # from django.http import JsonResponse, HttpResponse
 # from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.parsers import JSONParser
