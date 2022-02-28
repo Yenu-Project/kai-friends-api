@@ -12,11 +12,16 @@ $ source env/bin/activate
 
 ### Install Requirements
 
-TODO
+```
+$ pip install poetry
+$ poetry install
+```
 
 ### Environment Configuration
 
-TODO: .env TODO: explain make env
+Create a `.env` file based on `.env.example`, and fill in your database credentials.
+
+Then, call `source .env`.
 
 ### Create and Migrate Database
 
