@@ -1,9 +1,8 @@
-from django.contrib.auth.models import User
 from rest_framework import permissions, viewsets
 
-from app.models import UserProfile
+from app.models.user_profile import UserProfile
 from app.permissions import IsOwnerOrReadOnly
-from app.serializers import UserProfileSerializer, UserSerializer
+from app.serializers.user_profile import UserProfileSerializer
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -16,11 +15,3 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    This viewset automatically provides `list` and `retrieve` actions
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
