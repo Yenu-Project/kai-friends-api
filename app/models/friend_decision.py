@@ -29,3 +29,11 @@ class FriendDecision(models.Model):
         default=timezone.datetime.min.replace(tzinfo=timezone.utc),
         verbose_name='신청 받은 사람의 결정 시간',
     )
+
+    receiver_decision = models.BooleanField(
+        verbose_name='친구 신청 수락 여부',
+    )
+
+    sender_decision = models.BooleanField(
+        verbose_name='친구 신청 여부',
+    )
