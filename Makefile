@@ -1,5 +1,14 @@
+SHELL := /bin/bash
+include ./.env
+
+rundb:
+	docker compose -f docker-compose.dev.yml up -d
+
+downdb:
+	docker compose -f docker-compose.dev.yml down
+
 init:
-	mysql -u root -e 'CREATE DATABASE kai_friends CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;'
+	mysql -u ${KAIFRIENDS_DB_USER} -h ${KAIFRIENDS_DB_HOST} --password=${KAIFRIENDS_DB_PASSWORD} -e 'CREATE DATABASE kai_friends CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;'
 	python manage.py migrate
 
 migrate:
