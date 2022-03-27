@@ -5,3 +5,5 @@ from .dormitory import Dormitory
 from .friend_decision import FriendDecision
 from .course import Course
 from .major import Major
+from .needs import Needs
+from .friend_preference import FriendPreference
