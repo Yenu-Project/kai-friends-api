@@ -19,8 +19,12 @@ class UserProfile(models.Model):
         default=0,
         verbose_name='나이'
     )
-    # TODO
-    # major =
+    major = models.ForeignKey(
+        to='app.Major',
+        default=None,
+        verbose_name='전공',
+        on_delete=models.CASCADE,
+    )
     degree = models.ForeignKey(
         to='app.Degree',
         default=None,
