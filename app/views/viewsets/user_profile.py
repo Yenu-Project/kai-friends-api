@@ -7,7 +7,7 @@ from app.serializers.user_profile import UserProfileSerializer
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
-    This viewset automatically provides `list`, `create`, `retrieve`, `update` and `destroy` actions.
+    This viewsets automatically provides `list`, `create`, `retrieve`, `update` and `destroy` actions.
     """
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
