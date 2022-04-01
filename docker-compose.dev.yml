@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - kaifriends:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${KAIFRIENDS_DB_PASSWORD}
+      TZ: Asia/Seoul
+volumes:
+  kaifriends:
