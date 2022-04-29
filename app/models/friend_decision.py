@@ -32,8 +32,10 @@ class FriendDecision(models.Model):
 
     receiver_decision = models.BooleanField(
         verbose_name='친구 신청 수락 여부',
+        default=False,
     )
 
     sender_decision = models.BooleanField(
         verbose_name='친구 신청 여부',
+        default=False,
     )
