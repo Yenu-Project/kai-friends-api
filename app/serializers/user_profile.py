@@ -3,9 +3,22 @@ from rest_framework import serializers
 from app.models.user_profile import UserProfile
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
-
+class BaseUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['user_id', 'username', 'email', 'user']
+        fields = '__all__'
+
+
+class UserProfileSerializer(BaseUserProfileSerializer):
+    class Meta(BaseUserProfileSerializer.Meta):
+        pass
+
+
+class UserProfileCreateActionSerializer(BaseUserProfileSerializer):
+    class Meta(BaseUserProfileSerializer.Meta):
+        pass
+
+
+class UserProfileUpdateActionSerializer(BaseUserProfileSerializer):
+    class Meta(BaseUserProfileSerializer.Meta):
+        pass
