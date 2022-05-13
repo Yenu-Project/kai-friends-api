@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 
 
-# TODO: need to replace with Django auth user
 class UserProfile(models.Model):
     user = models.OneToOneField(
         to=settings.AUTH_USER_MODEL,
@@ -58,3 +57,7 @@ class UserProfile(models.Model):
         max_length=256,
         verbose_name='카카오 오픈채팅 링크'
     )
+
+    @classmethod
+    def get_profiles(cls, users):
+        return cls.objects.filter(user__in=list(users))

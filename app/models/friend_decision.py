@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class FriendDecision(models.Model):
@@ -39,3 +40,13 @@ class FriendDecision(models.Model):
         verbose_name='친구 신청 여부',
         default=False,
     )
+
+    @classmethod
+    def get_friends(cls, user):
+        sent_decisions = FriendDecision.objects.filter(sender=user, receiver_decision=True)
+        received_decisions = FriendDecision.objects.filter(receiver=user, receiver_decision=True)
+
+        sent_friends = User.objects.filter(received_decisions__in=sent_decisions)
+        received_friends = User.objects.filter(sent_decisions__in=received_decisions)
+
+        return sent_friends | received_friends

@@ -1,6 +1,7 @@
 from rest_framework import routers
 
 from app.views.viewsets import UserViewSet, UserProfileViewSet
+from app.views.viewsets.friends import FriendViewSet
 from app.views.viewsets.matching import MatchingViewSet
 from app.views.viewsets.friend_decision import FriendDecisionViewSet
 
@@ -27,4 +28,11 @@ router.register(
 router.register(
     prefix=r'friend_decisions',
     viewset=FriendDecisionViewSet,
+    basename='friend_decisions'
+)
+
+router.register(
+    prefix=r'friends',
+    viewset=FriendViewSet,
+    basename='friends'
 )
