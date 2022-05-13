@@ -10,6 +10,7 @@ class UserProfile(models.Model):
         related_name='profile',
         on_delete=models.CASCADE,
         verbose_name='사용자',
+        primary_key=True,
     )
     gender = models.BooleanField(
         default=None,

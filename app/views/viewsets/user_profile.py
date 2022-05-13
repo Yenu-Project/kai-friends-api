@@ -1,8 +1,8 @@
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
 from app.models.user_profile import UserProfile
-from app.permissions import IsOwnerOrReadOnly
-from app.serializers.user_profile import UserProfileSerializer
+from app.serializers.user_profile import UserProfileSerializer, UserProfileCreateActionSerializer, \
+    UserProfileUpdateActionSerializer
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -11,7 +11,13 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    action_serializer_class = {
+        'create': UserProfileCreateActionSerializer,
+        'update': UserProfileUpdateActionSerializer,
+    }
 
     def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
         serializer.save(user=self.request.user)
