@@ -2,6 +2,7 @@ SHELL := /bin/bash
 include ./.env
 
 rundb:
+	. env/bin/activate
 	docker compose -f docker-compose.dev.yml up -d
 
 downdb:
