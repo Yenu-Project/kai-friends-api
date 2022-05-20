@@ -1,9 +1,9 @@
 from app.models import FriendDecision
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, mixins
 from app.models.user_profile import UserProfile
 from app.serializers.user_profile import UserProfileSerializer
 
-class FriendRequestViewSet(viewsets.ModelViewSet):
+class FriendRequestViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = (
