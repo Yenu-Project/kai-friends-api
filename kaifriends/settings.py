@@ -82,11 +82,11 @@ DATABASES = {
             'charset': 'utf8mb4',
             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"',
         },
-        'NAME': env('KAIFRIENDS_DB_NAME', 'kai_friends'),
-        'USER': env('KAIFRIENDS_DB_USER', 'root'),
-        'PASSWORD': env('KAIFRIENDS_DB_PASSWORD', 'jessie'),
-        'HOST': env('KAIFRIENDS_DB_HOST', 'localhost'),
-        'PORT': env('KAIFRIENDS_DB_PORT', '3306'),
+        'NAME': env('KAIFRIENDS_DB_NAME'),
+        'USER': env('KAIFRIENDS_DB_USER'),
+        'PASSWORD': env('KAIFRIENDS_DB_PASSWORD'),
+        'HOST': env('KAIFRIENDS_DB_HOST'),
+        'PORT': env('KAIFRIENDS_DB_PORT'),
     }
 }
 
